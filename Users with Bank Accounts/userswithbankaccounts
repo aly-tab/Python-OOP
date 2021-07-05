@@ -1,0 +1,66 @@
+class User:		
+    def __init__(self, name, email):
+        self.name = name
+        self.email = email
+        self.account = BankAccount(int_rate=0.01, balance=0)
+
+
+    def make_deposit(self, amount): 
+        self.account.deposit(amount)
+        return self 
+    def make_withdrawal(self, amount):
+        self.account.withdraw(amount)
+        return self
+    def display_user_balance(self):
+        print("User:" , self.name)
+        self.account.display_account_info()
+        return self
+    
+    def transfer_money(self, other_user, amount): 
+        self.account.deposit(amount)
+        other_user.account.withdraw(amount)
+        return self
+
+class BankAccount:
+
+    accounts =[]
+
+    def __init__(self, int_rate, balance): 
+        self.int_rate = 0.01
+        if (balance == ''):
+            self.balance = 0
+        else: 
+            self.balance = balance
+        BankAccount.accounts.append(self)
+
+    def deposit(self, amount):
+        self.balance += amount
+
+    def withdraw(self, amount):
+        self.balance -= amount
+        if (self.balance < 0):
+            print("Insufficient funds: Charging a $5 fee")
+            self.balance -= 5
+
+    def display_account_info(self):
+        print("Balance:" , self.balance)
+
+    def yield_interest(self):
+        self.balance += self.balance * self.int_rate
+
+    @classmethod
+    def print_instances(cls):
+        for account in cls.accounts:
+            print("Balance:" , account.balance , "- Interest Rate:" ,account.int_rate)
+
+jimList = ["account1", "account2"]
+
+jim = User("Jim Dean", "jim@python.com")
+george = User("George Morten", "george@python.com")
+
+
+
+jim.make_deposit(2000).display_user_balance()
+george.make_deposit(500).make_withdrawal(100).display_user_balance().transfer_money(jim, 1900).display_user_balance()
+jim.display_user_balance()
+
