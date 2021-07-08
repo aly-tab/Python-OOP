@@ -7,12 +7,15 @@ class Ninja:
 		self.pet = pet
 
 	def walk(self):
+		print(self.first_name , "is walking" , self.pet.name + ".")
 		self.pet.play(self.pet)
 		return self
 	def feed(self):
+		print(self.first_name , "is feeding" , self.pet.name + ".")
 		self.pet.eat(self.pet, self.pet)
 		return self
 	def bathe(self):
+		print(self.first_name , "is bathing" , self.pet.name + ".")
 		self.pet.noise(self.pet)
 		return self
 
@@ -24,16 +27,16 @@ class Pet:
 		self.health = 100
 		self.energy = 25
 	def sleep(self, energy):
-		self.energy + 25
-		print("Energy:" , self.energy)
+		self.energy += 25
+		print(self.name + "'s energy is now" , self.energy + ".")
 	def eat(self, health, energy):
-		self.health = 10
-		self.energy = 5
-		print("Health:" , self.health)
-		print("Energy:" , self.energy)
+		self.health += 10
+		self.energy += 5
+		print(self.name + "'s health is now" , str(self.health) + ".")
+		print(self.name + "'s energy is now" , str(self.energy) + ".")
 	def play(self, health):
-		self.health = 5
-		print("Health:" , self.health)
+		self.health += 5
+		print(self.name + "'s health is now" , str(self.health) + ".")
 	def noise(self, noise):
 		print("Zzzzzrp")
 
